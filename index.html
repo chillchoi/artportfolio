@@ -810,22 +810,22 @@ input::placeholder, textarea::placeholder { color: var(--ink-50); font-weight: 3
 
         <!-- 03 VIDEO -->
         <div class="thumb lb-trigger" style="width:215px;height:300px;"
-             data-lb-num="003" data-lb-src="artwork-3.mp4" data-lb-type="video"
+             data-lb-num="003" data-lb-src="https://www.youtube.com/embed/uGkntLvg0UM" data-lb-type="youtube"
              data-lb-title="The Sacrifice of Hydrogen"
              data-lb-meta="2023 / Digital Animation"
              data-lb-desc="Written, researched, and animated by Justin Joonseo Choi. This story is based on my experience researching water-splitting as an intern at Stanford. Special thanks to my parents, Dr. Rose Tyvand (AP Chemistry Teacher at Seoul International School), and Professor Yi Cui from Materials Science and Engineering at Stanford University.\n\nThe Sacrifice of Hydrogen demonstrates the main technique of water-splitting and how we can obtain hydrogen to use as fuel for common transportation. This animation represents water-splitting through a separating family: two hydrogen parents and one oxygen child. In the first scene, the Earth man collapses as a petroleum car passes by due to global warming. The H2O family that discovers this decides to visit the Master of Electrodeposition. However, the master separates the oxygen child from the hydrogen parents through electrodeposition and by inserting a 1.6% P123 solution electrolyte for efficient OER and water-splitting.\n\nAt the end, the parents remain in the building while the oxygen child leaves. This represents their sacrifice: they remain to act as the main fuel source of hydrogen fuel cars. Thanks to their sacrifice, Earth man remains safe with the oxygen child that evolved into O2. Other references to my research include the voltages in the elevator and the three buildings representing the three-electrode system.">
-          <video src="artwork-3.mp4" muted loop preload="none" style="width:100%;height:100%;object-fit:cover;"></video>
+          <img src="https://img.youtube.com/vi/uGkntLvg0UM/hqdefault.jpg" alt="Video thumbnail" style="width:100%;height:100%;object-fit:cover;"></video>
           <span class="play-badge">Video</span>
           <div class="thumb-info"><div class="thumb-title">The Sacrifice of Hydrogen</div><div class="thumb-year">2023 / Animation</div></div>
         </div>
 
         <!-- 04 VIDEO -->
         <div class="thumb lb-trigger" style="width:260px;height:300px;"
-             data-lb-num="004" data-lb-src="artwork-4.mp4" data-lb-type="video"
+             data-lb-num="004" data-lb-src="https://www.youtube.com/embed/fx-04yCoo_Y" data-lb-type="youtube"
              data-lb-title="OVERHEATED"
              data-lb-meta="2023 / Graphic Novel (Mixed Media)"
              data-lb-desc="OVERHEATED is a short comic novel discussing the controversy of giving up everyday materials in order to reduce greenhouse gas emissions. Specifically, it explores how preventing F-gas emissions would require us to give up products we cannot live without, like refrigerators and electronics. It tells a message that achieving the answer to global warming requires a huge cost, which is why solutions cannot happen overnight.\n\nAluminum was chosen to represent the villain F-man because aluminum is produced as a byproduct of F-gas emissions. It gives a unique texture that differentiates him from the rest of society, designed to carry a political message about the materials we take for granted.\n\nThe graphic novel uses materials like aluminum foil as a found object, camera, Procreate, and Illustrator. The basic processes include digital drawing, mixed media, and photography. This project consists of fifteen A4 sheets.">
-          <video src="artwork-4.mp4" muted loop preload="none" style="width:100%;height:100%;object-fit:cover;"></video>
+          <img src="https://img.youtube.com/vi/fx-04yCoo_Y/hqdefault.jpg" alt="Video thumbnail" style="width:100%;height:100%;object-fit:cover;"></video>
           <span class="play-badge">Video</span>
           <div class="thumb-info"><div class="thumb-title">OVERHEATED</div><div class="thumb-year">2023 / Graphic Novel</div></div>
         </div>
@@ -1081,7 +1081,7 @@ input::placeholder, textarea::placeholder { color: var(--ink-50); font-weight: 3
     <!-- LEFT: image -->
     <div class="lb-img-pane" id="lbImgPane">
       <img id="lbImg" src="" alt="" draggable="false">
-      <video id="lbVideo" controls playsinline></video>
+      <iframe id="lbVideo" allow="autoplay; encrypted-media" allowfullscreen style="width:100%;height:100%;border:none;"></iframe>
       <p class="lb-zoom-hint" id="lbZoomHint">Click image to zoom</p>
       <!-- placeholder when no image -->
       <div class="lb-coming" id="lbComing">
@@ -1282,7 +1282,7 @@ const lbZoomHint= document.getElementById('lbZoomHint');
 
 function openLb(el) {
   const src     = el.dataset.lbSrc    || '';
-  const isVideo = el.dataset.lbType   === 'video';
+  const isVideo = el.dataset.lbType   === 'video'; const isYoutube = el.dataset.lbType === 'youtube';
   const num     = el.dataset.lbNum    || '';
   const title   = el.dataset.lbTitle  || 'Untitled';
   const meta    = el.dataset.lbMeta   || '';
@@ -1295,15 +1295,15 @@ function openLb(el) {
 
   // reset both
   lbImg.style.display   = 'none';
-  lbVideo.style.display = 'none';
+  lbVideo.style.display = 'none'; lbVideo.src = '';
   lbComing.style.display= 'none';
   lbZoomHint.style.display = 'none';
   lbImg.classList.remove('zoomed');
 
-  if (src && isVideo) {
+  if (src && (isYoutube || isVideo)) {
     lbVideo.src           = src;
     lbVideo.style.display = 'block';
-    lbVideo.load();
+    if (lbVideo.load) lbVideo.load();
   } else if (src) {
     lbImg.src              = src;
     lbImg.alt              = title;
