@@ -324,6 +324,13 @@ const SITE = {
   const pad2 = n => String(n).padStart(2, "0");
   root.style.setProperty("--acc", SITE.accent);
   doc.title = SITE.name;
+  (function shuffleLocations() {
+    const L = SITE.locations;
+    for (let i = L.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = L[i]; L[i] = L[j]; L[j] = t; }
+    const ci = L.findIndex(function (x) { return x.key === "california"; });
+    if (ci > -1 && ci < L.length - 2) { const cal = L.splice(ci, 1)[0]; L.splice(L.length - 1 - Math.floor(Math.random() * 2), 0, cal); }
+    if (L.length > 1 && L[0].key === "capecod") { const t = L[0]; L[0] = L[1]; L[1] = t; }
+  })();
   function el(tag, cls, text) { const n = doc.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
 
   $("tbName").textContent = SITE.name.toUpperCase();
@@ -414,11 +421,11 @@ const SITE = {
     const l = el("div", "vlbl"); l.appendChild(el("span", "ix", numOf("photo"))); l.appendChild(el("span", "", "( photography · six issues, six places )")); box.appendChild(l);
     const wrap = el("div", "locwrap");
     const secEls = [];
-    SITE.locations.forEach(L => {
+    SITE.locations.forEach((L, li) => {
       const sec = el("section", "loc " + L.font + (L.extra ? " x-" + L.extra : ""));
       sec.style.cssText = "--lbg:" + L.bg + ";--link:" + L.ink + ";--ldim:" + L.ldim + ";--lacc:" + L.acc + ";--cols:" + L.cols + ";";
       const hd = el("div", "loc-head al-" + L.align);
-      hd.appendChild(el("div", "loc-kicker", L.kicker));
+      hd.appendChild(el("div", "loc-kicker", L.kicker.replace(/Issue \d+/, "Issue " + pad2(li + 1))));
       hd.appendChild(el("h2", "loc-name", L.name));
       hd.appendChild(el("p", "loc-blurb", L.blurb));
       hd.appendChild(el("div", "loc-meta", L.meta));
