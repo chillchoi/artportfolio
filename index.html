@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@800&family=EB+Garamond:wght@500&family=Oswald:wght@700&family=Archivo+Expanded:wght@800&family=Archivo+Black&family=JetBrains+Mono:wght@700&family=Anton&display=swap" rel="stylesheet">
 <style>
 /* ===== TOKENS (Jeton structure, black + blue skin) ===== */
 :root{
@@ -453,6 +454,34 @@ if(matchMedia('(hover:hover) and (pointer:fine)').matches){
 addEventListener('click',e=>{const d=document.createElement('div');d.className='ripple';d.style.left=e.clientX+'px';d.style.top=e.clientY+'px';document.body.appendChild(d);setTimeout(()=>d.remove(),600);});
 console.log('%cJustin Joonseo Choi','color:#7cb0ee;font-size:20px;font-weight:700');
 console.log('%cinteractive art, handmade since 2019 · @doodleschoi___','color:#a9ccf5;font-size:12px');
+</script>
+<footer id="afoot" role="button" tabindex="0" aria-label="Home"><div class="afoot-in-wrap"><span class="afoot-1 af-in">Justin Joonseo Choi</span><span class="afoot-3"><span class="afl"><span class="af-in">Justin</span></span><span class="afl"><span class="af-in">Joonseo</span></span><span class="afl"><span class="af-in">Choi</span></span></span></div></footer>
+<style>
+#afoot{position:relative;display:block;width:100%;overflow:hidden;line-height:.78;text-transform:uppercase;font-weight:700;font-family:'Inter Tight',sans-serif;color:#fff;background:linear-gradient(120deg,#3d6fa6 0%,#1e3d5c 52%,#0b0d10 100%);padding:clamp(24px,5vh,64px) clamp(8px,2vw,22px) clamp(30px,6vh,74px);cursor:pointer;font-size:clamp(2.2rem,12.5vw,11rem);border-top:1px solid var(--line)}
+#afoot:hover{color:var(--blue-br)}
+.afoot-in-wrap{position:relative;z-index:1}
+.af-in{position:relative;display:inline-block;transform-origin:left center;white-space:nowrap;will-change:transform}
+.afoot-3{display:none}
+.afoot-3 .afl{display:block}
+.afoot-3 .af-in{font-size:clamp(3rem,19vw,7rem)}
+@media (max-width:600px){.afoot-1{display:none}.afoot-3{display:block}}
+</style>
+<script>
+(function(){
+  var fonts=["'Inter Tight',sans-serif","'EB Garamond',serif","'Oswald',sans-serif","'Archivo Expanded',sans-serif","'Archivo Black',sans-serif","'JetBrains Mono',monospace","'Anton',sans-serif"];
+  var af=document.getElementById('afoot'); if(!af) return;
+  var spans=af.querySelectorAll('.af-in'); var idx=0, hover=false;
+  function fit(s){ if(!s||!s.parentNode) return; s.style.transform='scaleX(1)'; var cw=s.parentNode.clientWidth, tw=s.getBoundingClientRect().width; if(cw>0&&tw>0) s.style.transform='scaleX('+(cw/tw)+')'; }
+  function fitAll(){ Array.prototype.forEach.call(spans,fit); }
+  af.addEventListener('mouseenter',function(){hover=true;});
+  af.addEventListener('mouseleave',function(){hover=false;});
+  setInterval(function(){ if(hover) return; idx=(idx+1)%fonts.length; af.style.fontFamily=fonts[idx]; fitAll(); },200);
+  function goHome(){ window.location.href='https://chillchoi.github.io/'; }
+  af.addEventListener('click',goHome);
+  af.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); goHome(); } });
+  fitAll(); if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fitAll);} setTimeout(fitAll,300); setTimeout(fitAll,800);
+  addEventListener('resize',fitAll);
+})();
 </script>
 </body>
 </html>
